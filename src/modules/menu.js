@@ -4,7 +4,6 @@ const menu = () => {
   const closeBtn = menu.querySelector(".close-btn");
   const menuItems = menu.querySelectorAll("ul>li>a");
   const scrollBtn = document.querySelector('[href="#service-block"]');
-  console.log(scrollBtn);
 
   const handleMenu = () => {
     menu.classList.toggle("active-menu");
