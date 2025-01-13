@@ -1,13 +1,22 @@
 const modal = () => {
   const modal = document.querySelector(".popup");
   const buttons = document.querySelectorAll(".popup-btn");
-  const closeBtn = modal.querySelector(".popup-close");
   const popupContent = modal.querySelector(".popup-content");
   const modalForm = popupContent.querySelector(".main-form");
   const nameInput = modalForm.querySelector(".form-name");
   const emailInput = modalForm.querySelector(".form-email");
   const phoneInput = modalForm.querySelector(".form-phone");
   let position = -300;
+
+  modal.addEventListener("click", (e) => {
+    if (!e.target.closest(".popup-content") || e.target.classList.contains("popup-close")) {
+      modal.style.display = "none";
+      if (window.innerWidth >= 768) {
+        popupContent.style.transform = "translateX(-300%)";
+        position = -300;
+      }
+    }
+  });
 
   nameInput.addEventListener("input", (event) => {
     event.target.value = event.target.value.replace(/[^А-Яа-яёЁ -]+/, "");
@@ -61,14 +70,6 @@ const modal = () => {
         animate();
       }
     });
-  });
-
-  closeBtn.addEventListener("click", () => {
-    modal.style.display = "none";
-    if (window.innerWidth >= 768) {
-      popupContent.style.transform = "translateX(-300%)";
-      position = -300;
-    }
   });
 
   window.addEventListener("resize", () => {

@@ -1,9 +1,5 @@
 const menu = () => {
-  const menuBtn = document.querySelector(".menu");
   const menu = document.querySelector("menu");
-  const closeBtn = menu.querySelector(".close-btn");
-  const menuItems = menu.querySelectorAll("ul>li>a");
-  const scrollBtn = document.querySelector('[href="#service-block"]');
 
   const handleMenu = () => {
     menu.classList.toggle("active-menu");
@@ -15,21 +11,24 @@ const menu = () => {
     targetElement.scrollIntoView({ behavior: "smooth" });
   };
 
-  menuBtn.addEventListener("click", handleMenu);
-  closeBtn.addEventListener("click", handleMenu);
+  const toggleMenu = () => {
+    document.addEventListener("click", (e) => {
+      if (e.target.closest(".menu") || e.target.classList.contains("close-btn")) {
+        handleMenu();
+      } else if (e.target.closest("menu") && e.target.closest("a")) {
+        e.preventDefault();
+        scrollToTarget(e.target);
+        handleMenu();
+      } else if (e.target.closest('[href="#service-block"]')) {
+        e.preventDefault();
+        scrollToTarget(e.target.closest('[href="#service-block"]'));
+      } else if (e.target.closest("main") && !e.target.closest("menu")) {
+        menu.classList.remove("active-menu");
+      }
+    });
+  };
 
-  menuItems.forEach((menuItem) =>
-    menuItem.addEventListener("click", (event) => {
-      event.preventDefault();
-      scrollToTarget(menuItem);
-      handleMenu();
-    })
-  );
-
-  scrollBtn.addEventListener("click", (event) => {
-    event.preventDefault();
-    scrollToTarget(scrollBtn);
-  });
+  toggleMenu();
 };
 
 export default menu;
