@@ -11,24 +11,22 @@ const menu = () => {
     targetElement.scrollIntoView({ behavior: "smooth" });
   };
 
-  const toggleMenu = () => {
-    document.addEventListener("click", (e) => {
-      if (e.target.closest(".menu") || e.target.classList.contains("close-btn")) {
-        handleMenu();
-      } else if (e.target.closest("menu") && e.target.closest("a")) {
-        e.preventDefault();
-        scrollToTarget(e.target);
-        handleMenu();
-      } else if (e.target.closest('[href="#service-block"]')) {
-        e.preventDefault();
-        scrollToTarget(e.target.closest('[href="#service-block"]'));
-      } else if (e.target.closest("main") && !e.target.closest("menu")) {
-        menu.classList.remove("active-menu");
-      }
-    });
+  const toggleMenu = (e) => {
+    if (e.target.closest(".menu") || e.target.classList.contains("close-btn")) {
+      handleMenu();
+    } else if (e.target.closest("menu") && e.target.closest("a")) {
+      e.preventDefault();
+      scrollToTarget(e.target);
+      handleMenu();
+    } else if (e.target.closest('[href="#service-block"]')) {
+      e.preventDefault();
+      scrollToTarget(e.target.closest('[href="#service-block"]'));
+    } else if (e.target.closest("main") && !e.target.closest("menu")) {
+      menu.classList.remove("active-menu");
+    }
   };
 
-  toggleMenu();
+  document.addEventListener("click", toggleMenu);
 };
 
 export default menu;
