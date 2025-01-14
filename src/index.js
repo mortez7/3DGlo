@@ -5,6 +5,7 @@ import calculator from "./modules/calculator";
 import mainForm from "./modules/main-form";
 import footerForm from "./modules/footer-form";
 import tabs from "./modules/tabs";
+import slider from "./modules/slider";
 
 timer("10 january 2025");
 menu();
@@ -13,3 +14,4 @@ calculator();
 mainForm();
 footerForm();
 tabs();
+slider("portfolio-content", "portfolio-item", "dot", "portfolio-btn");
