@@ -20,8 +20,7 @@ const slider = (sliderClass, slideClass, dotClass, arrowsClass, slideActive = "p
       dotsContainer.appendChild(dot);
     }
 
-    const dots = document.querySelectorAll("." + dotClass);
-    return dots;
+    return document.querySelectorAll("." + dotClass);
   };
 
   const prevSlide = (elems, index, strClass) => {

@@ -10,7 +10,7 @@ import slider from "./modules/slider";
 timer("10 january 2025");
 menu();
 modal();
-calculator();
+calculator(100);
 mainForm();
 footerForm();
 tabs();
