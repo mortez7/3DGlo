@@ -1,3 +1,5 @@
+import { animate } from "./helpers";
+
 const modal = () => {
   const modal = document.querySelector(".popup");
   const buttons = document.querySelectorAll(".popup-btn");
@@ -6,14 +8,12 @@ const modal = () => {
   const nameInput = modalForm.querySelector(".form-name");
   const emailInput = modalForm.querySelector(".form-email");
   const phoneInput = modalForm.querySelector(".form-phone");
-  let position = -300;
 
   modal.addEventListener("click", (e) => {
     if (!e.target.closest(".popup-content") || e.target.classList.contains("popup-close")) {
       modal.style.display = "none";
       if (window.innerWidth >= 768) {
         popupContent.style.transform = "translateX(-300%)";
-        position = -300;
       }
     }
   });
@@ -55,19 +55,22 @@ const modal = () => {
     phoneInput.value = value;
   });
 
-  const animate = () => {
-    position += 10;
-    if (position <= 0) {
-      popupContent.style.transform = `translateX(${position}%)`;
-      requestAnimationFrame(animate);
-    }
-  };
-
   buttons.forEach((btn) => {
     btn.addEventListener("click", () => {
       modal.style.display = "block";
       if (window.innerWidth >= 768) {
-        animate();
+        animate({
+          duration: 400,
+          timing(timeFraction) {
+            return timeFraction;
+          },
+          draw(progress) {
+            const start = -300;
+            const end = 0;
+            const current = start + (end - start) * progress;
+            popupContent.style.transform = `translateX(${current}%)`;
+          },
+        });
       }
     });
   });

@@ -1,3 +1,5 @@
+import { animate } from "./helpers";
+
 const calculator = (price = 100) => {
   const calcBlock = document.querySelector(".calc-block");
   const calcType = document.querySelector(".calc-type");
@@ -5,26 +7,6 @@ const calculator = (price = 100) => {
   const calcCount = document.querySelector(".calc-count");
   const calcDay = document.querySelector(".calc-day");
   const total = document.getElementById("total");
-
-  // принимаем элемент, в который будем записывать значение, итоговое значение, и время анимации
-  const animateValue = (target, targetValue, duration) => {
-    const startValue = +total.textContent; // за стартовое значение берем текущее значение в элементе
-    const startTime = performance.now(); // время отправной точки анимации
-
-    const update = (currentTime) => {
-      const elapsed = currentTime - startTime; // вычисляем сколько времени прошло с начала анимации
-      const progress = Math.min(elapsed / duration, 1); // вычисляем долю завершенности анимации
-      const currentValue = Math.round(startValue + (targetValue - startValue) * progress); // в зависимости от прогресса вычисляем текущее значение
-
-      target.textContent = currentValue;
-
-      if (progress < 1) {
-        requestAnimationFrame(update);
-      }
-    };
-
-    requestAnimationFrame(update);
-  };
 
   const countCalc = () => {
     const calcTypeValue = +calcType.options[calcType.selectedIndex].value;
@@ -50,7 +32,17 @@ const calculator = (price = 100) => {
       totalValue = 0;
     }
 
-    animateValue(total, totalValue, 1000);
+    animate({
+      duration: 1000,
+      timing(timeFraction) {
+        return timeFraction;
+      },
+      draw(progress) {
+        const startValue = +total.textContent;
+        const currentValue = Math.round(startValue + (totalValue - startValue) * progress);
+        total.textContent = currentValue;
+      },
+    });
   };
 
   calcBlock.addEventListener("input", (e) => {
