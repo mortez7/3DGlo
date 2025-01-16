@@ -54,8 +54,10 @@ const calculator = (price = 100) => {
   };
 
   calcBlock.addEventListener("input", (e) => {
-    if (e.target === calcType || e.target === calcSquare || e.target === calcCount || e.target === calcDay) {
+    if (e.target.matches('[type="text"]')) {
       e.target.value = e.target.value.replace(/\D+/, "");
+    }
+    if (e.target === calcType || e.target === calcSquare || e.target === calcCount || e.target === calcDay) {
       countCalc();
     }
   });
