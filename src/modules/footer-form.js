@@ -1,3 +1,5 @@
+import { validate } from "./helpers";
+
 const footerForm = () => {
   const footerForm = document.querySelector(".footer-form");
   const nameInput = footerForm.querySelector("#form2-name");
@@ -5,8 +7,8 @@ const footerForm = () => {
   const phoneInput = footerForm.querySelector(".form-phone");
   const textField = footerForm.querySelector(".mess");
 
-  nameInput.addEventListener("input", (event) => {
-    event.target.value = event.target.value.replace(/[^А-Яа-яёЁ -]+/, "");
+  footerForm.addEventListener("input", (e) => {
+    validate(e);
   });
 
   nameInput.addEventListener("blur", () => {
@@ -22,28 +24,16 @@ const footerForm = () => {
     nameInput.value = value;
   });
 
-  emailInput.addEventListener("input", (event) => {
-    event.target.value = event.target.value.replace(/[^A-Za-z0-9@\-_.!~*']+/, "");
-  });
-
   emailInput.addEventListener("blur", () => {
     let value = emailInput.value;
     value = value.replace(/-+/g, "-");
     emailInput.value = value;
   });
 
-  phoneInput.addEventListener("input", (event) => {
-    event.target.value = event.target.value.replace(/[^0-9()\-]+/, "");
-  });
-
   phoneInput.addEventListener("blur", () => {
     let value = phoneInput.value;
     value = value.replace(/-+/g, "-");
     phoneInput.value = value;
-  });
-
-  textField.addEventListener("input", (event) => {
-    event.target.value = event.target.value.replace(/[^А-Яа-яёЁ -]+/, "");
   });
 
   textField.addEventListener("blur", () => {

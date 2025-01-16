@@ -1,11 +1,13 @@
+import { validate } from "./helpers";
+
 const mainForm = () => {
   const mainForm = document.querySelector(".main-form");
   const nameInput = mainForm.querySelector(".form-name");
   const emailInput = mainForm.querySelector(".form-email");
   const phoneInput = mainForm.querySelector(".form-phone");
 
-  nameInput.addEventListener("input", (event) => {
-    event.target.value = event.target.value.replace(/[^А-Яа-яёЁ -]+/, "");
+  mainForm.addEventListener("input", (e) => {
+    validate(e);
   });
 
   nameInput.addEventListener("blur", () => {
@@ -21,18 +23,10 @@ const mainForm = () => {
     nameInput.value = value;
   });
 
-  emailInput.addEventListener("input", (event) => {
-    event.target.value = event.target.value.replace(/[^A-Za-z0-9@\-_.!~*']+/, "");
-  });
-
   emailInput.addEventListener("blur", () => {
     let value = emailInput.value;
     value = value.replace(/-+/g, "-");
     emailInput.value = value;
-  });
-
-  phoneInput.addEventListener("input", (event) => {
-    event.target.value = event.target.value.replace(/[^0-9()\-]+/, "");
   });
 
   phoneInput.addEventListener("blur", () => {

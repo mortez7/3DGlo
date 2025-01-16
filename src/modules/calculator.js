@@ -1,4 +1,4 @@
-import { animate } from "./helpers";
+import { animate, validate } from "./helpers";
 
 const calculator = (price = 100) => {
   const calcBlock = document.querySelector(".calc-block");
@@ -46,9 +46,7 @@ const calculator = (price = 100) => {
   };
 
   calcBlock.addEventListener("input", (e) => {
-    if (e.target.matches('[type="text"]')) {
-      e.target.value = e.target.value.replace(/\D+/, "");
-    }
+    validate(e);
     if (e.target === calcType || e.target === calcSquare || e.target === calcCount || e.target === calcDay) {
       countCalc();
     }

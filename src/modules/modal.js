@@ -1,4 +1,4 @@
-import { animate } from "./helpers";
+import { animate, validate } from "./helpers";
 
 const modal = () => {
   const modal = document.querySelector(".popup");
@@ -18,8 +18,8 @@ const modal = () => {
     }
   });
 
-  nameInput.addEventListener("input", (event) => {
-    event.target.value = event.target.value.replace(/[^А-Яа-яёЁ -]+/, "");
+  popupContent.addEventListener("input", (e) => {
+    validate(e);
   });
 
   nameInput.addEventListener("blur", () => {
@@ -35,18 +35,10 @@ const modal = () => {
     nameInput.value = value;
   });
 
-  emailInput.addEventListener("input", (event) => {
-    event.target.value = event.target.value.replace(/[^A-Za-z0-9@\-_.!~*']+/, "");
-  });
-
   emailInput.addEventListener("blur", () => {
     let value = emailInput.value;
     value = value.replace(/-+/g, "-");
     emailInput.value = value;
-  });
-
-  phoneInput.addEventListener("input", (event) => {
-    event.target.value = event.target.value.replace(/[^0-9()\-]+/, "");
   });
 
   phoneInput.addEventListener("blur", () => {
