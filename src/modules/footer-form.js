@@ -1,50 +1,37 @@
 import { validate } from "./helpers";
+import sendForm from "./sendForm";
 
 const footerForm = () => {
   const footerForm = document.querySelector(".footer-form");
-  const nameInput = footerForm.querySelector("#form2-name");
-  const emailInput = footerForm.querySelector(".form-email");
-  const phoneInput = footerForm.querySelector(".form-phone");
-  const textField = footerForm.querySelector(".mess");
 
   footerForm.addEventListener("input", (e) => {
     validate(e);
   });
 
-  nameInput.addEventListener("blur", () => {
-    let value = nameInput.value;
+  footerForm.addEventListener("focusout", (e) => {
+    let value = e.target.value;
+    if (e.target.matches("#form2-name")) {
+      value = value.replace(/[\s+]+/g, " ");
+      value = value.replace(/-+/g, "-");
+      value = value.trim();
+      value = value
+        .split(" ")
+        .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+        .join(" ");
+    } else if (e.target.matches(".form-email")) {
+      value = value.replace(/-+/g, "-");
+    } else if (e.target.matches(".form-phone")) {
+      value = value.replace(/-+/g, "-");
+    } else if (e.target.matches(".mess")) {
+      value = value.replace(/[\s+]+/g, " ");
+      value = value.replace(/-+/g, "-");
+      value = value.trim();
+    }
 
-    value = value.replace(/[\s+]+/g, " ");
-    value = value.replace(/-+/g, "-");
-    value = value.trim();
-    value = value
-      .split(" ")
-      .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
-      .join(" ");
-    nameInput.value = value;
+    e.target.value = value;
   });
 
-  emailInput.addEventListener("blur", () => {
-    let value = emailInput.value;
-    value = value.replace(/-+/g, "-");
-    emailInput.value = value;
-  });
-
-  phoneInput.addEventListener("blur", () => {
-    let value = phoneInput.value;
-    value = value.replace(/-+/g, "-");
-    phoneInput.value = value;
-  });
-
-  textField.addEventListener("blur", () => {
-    let value = textField.value;
-
-    value = value.replace(/[\s+]+/g, " ");
-    value = value.replace(/-+/g, "-");
-    value = value.trim();
-
-    textField.value = value;
-  });
+  sendForm({ formId: "form2" });
 };
 
 export default footerForm;
