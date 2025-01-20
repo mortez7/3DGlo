@@ -9,8 +9,6 @@ const mainForm = () => {
   });
 
   mainForm.addEventListener("focusout", (e) => {
-    console.log(e.target);
-
     if (e.target.matches(".form-name")) {
       let value = e.target.value;
 

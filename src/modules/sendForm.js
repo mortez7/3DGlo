@@ -1,7 +1,6 @@
 const sendForm = ({ formId, someElem = [] }) => {
   const form = document.getElementById(formId);
   const statusBlock = document.createElement("div");
-  const loadText = "Загрузка...";
   const errorText = "Ошибка...";
   const successText = "Спасибо! Наш менеджер с вами свяжется";
 
@@ -15,6 +14,19 @@ const sendForm = ({ formId, someElem = [] }) => {
     // });
 
     return success;
+  };
+
+  const loadAnimation = (block) => {
+    block.classList.add("sk-three-bounce");
+    block.style.color = "#FFF";
+
+    for (let i = 1; i <= 3; i++) {
+      const newBlock = document.createElement("div");
+      newBlock.classList.add("sk-child", `sk-bounce-${i}`);
+      block.append(newBlock);
+    }
+
+    form.append(block);
   };
 
   const sendData = (data) => {
@@ -32,8 +44,7 @@ const sendForm = ({ formId, someElem = [] }) => {
     const formData = new FormData(form);
     const formBody = {};
 
-    statusBlock.textContent = loadText;
-    form.append(statusBlock);
+    loadAnimation(statusBlock);
 
     formData.forEach((val, key) => {
       formBody[key] = val;
@@ -52,6 +63,7 @@ const sendForm = ({ formId, someElem = [] }) => {
     if (validate(formElements)) {
       sendData(formBody)
         .then((data) => {
+          statusBlock.classList.remove("sk-three-bounce");
           statusBlock.textContent = successText;
 
           formElements.forEach((input) => {
@@ -59,6 +71,7 @@ const sendForm = ({ formId, someElem = [] }) => {
           });
         })
         .catch((error) => {
+          statusBlock.classList.remove("sk-three-bounce");
           statusBlock.textContent = errorText;
         });
     } else {

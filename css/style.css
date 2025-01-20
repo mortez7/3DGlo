@@ -1,0 +1,41 @@
+:root {
+  --spinkit-size: 4em;
+  --spinkit-spinner-color: #337ab7;
+  --animation-duration: 1.4s;
+  --delay-range: 0.32s;
+}
+
+.sk-three-bounce {
+  width: calc(var(--spinkit-size) * 2);
+  margin: auto;
+  text-align: center;
+}
+
+.sk-three-bounce .sk-child {
+  width: calc(var(--spinkit-size) / 2);
+  height: calc(var(--spinkit-size) / 2);
+  background-color: var(--spinkit-spinner-color);
+
+  border-radius: 100%;
+  display: inline-block;
+  animation: sk-three-bounce var(--animation-duration) ease-in-out 0s infinite both;
+}
+
+.sk-three-bounce .sk-bounce-1 {
+  animation-delay: calc(-1 * var(--delay-range));
+}
+
+.sk-three-bounce .sk-bounce-2 {
+  animation-delay: calc(-1 * var(--delay-range) / 2);
+}
+
+@keyframes sk-three-bounce {
+  0%,
+  80%,
+  100% {
+    transform: scale(0);
+  }
+  40% {
+    transform: scale(1);
+  }
+}
