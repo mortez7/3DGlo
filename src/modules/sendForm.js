@@ -66,6 +66,10 @@ const sendForm = ({ formId, someElem = [] }) => {
           statusBlock.classList.remove("sk-three-bounce");
           statusBlock.textContent = successText;
 
+          setTimeout(() => {
+            statusBlock.textContent = "";
+          }, 3000);
+
           formElements.forEach((input) => {
             input.value = "";
           });
