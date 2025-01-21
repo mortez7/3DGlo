@@ -7,12 +7,6 @@ const sendForm = ({ formId, someElem = [] }) => {
   const validate = (list) => {
     let success = true;
 
-    // list.forEach((input) => {
-    //   if (!input.classList.contains("success")) {
-    //     success = false;
-    //   }
-    // });
-
     return success;
   };
 
